@@ -1,0 +1,24 @@
+syntax = "proto3";
+package api;
+
+// import allows protoc to understand the option set later in the file.
+// and the option defines that method and the path to the endpoint
+import "google/api/annotations.proto";
+
+message PingMessage {
+  string greeting = 1;
+}
+
+// Defined 2 things
+// Service - called Ping that exposes a function called SayHello
+// with an incomming message called PingMessage, that consists in
+// a single field called greeting which is a string
+service Ping {
+  rpc SayHello(PingMessage) returns (PingMessage) {
+    option (google.api.http) = {
+      post: "/1/ping"
+      body: "*"
+    };
+  }
+}
+
